@@ -4,7 +4,8 @@ This is an e-commerce web application for my sister's [earring online store](htt
 
 ### Highlights:
 - Django/Django Rest Framework (Backend)
-- VueJS (Frontend)
+- VueJS (Javascript Framework)
+- Bulma (CSS Framework)
 
 ### TODO:
 
