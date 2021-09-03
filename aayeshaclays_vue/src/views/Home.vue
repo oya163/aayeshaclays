@@ -51,18 +51,24 @@ export default {
     
   },
   mounted() {
-    this.getLatestProducts()
+    this.getLatestProducts();
+
+    document.title = 'Home | AayeshaClays';
   },
   methods: {
-    getLatestProducts() {
-      axios
+    async getLatestProducts() {
+      this.$store.commit('setIsLoading', true);
+
+      await axios
         .get('/api/v1/latestproducts')
         .then(response => {
-          this.latestProducts = response.data
+          this.latestProducts = response.data;
         })
         .catch(error => {
           console.log(error);
         })
+      
+      this.$store.commit('setIsLoading', false);
     }
   }
 }

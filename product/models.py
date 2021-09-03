@@ -1,6 +1,7 @@
 from io import BytesIO
 from os import name
 from PIL import Image
+import PIL
 
 from django.core.files import File
 from django.db import models
@@ -78,10 +79,10 @@ class Product(models.Model):
             else:
                 return ''
 
-    def make_thumbnail(self, image, size=(300, 200)):
+    def make_thumbnail(self, image, size=[300, 200]):
         img = Image.open(image)
         img.convert('RGB')
-        img.thumbnail(size)
+        img.thumbnail(size, PIL.Image.ANTIALIAS)
 
         thumb_io = BytesIO()
         img.save(thumb_io, 'JPEG', quality=85)
