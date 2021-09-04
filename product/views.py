@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.http.response import Http404
 from django.shortcuts import render
 from django.http import Http404
@@ -5,6 +6,7 @@ from django.http import Http404
 from rest_framework import serializers
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.decorators import api_view
 
 from .models import Product, Color, Category
 from .serializers import ProductSerializer, ColorSerializer, CategorySerializer
@@ -44,3 +46,14 @@ class CategoryDetail(APIView):
         category = self.get_object(category_slug)
         serializer = CategorySerializer(category)
         return Response(serializer.data)
+
+@api_view(['POST'])
+def search(request):
+    query = request.data.get('query', '')
+
+    if query:
+        products = Product.objects.filter(Q(name__icontains=query) | Q(description__icontains=query))
+        serializer = ProductSerializer(products, many=True)
+        return Response(serializer.data)
+    else:
+        return Response({"products": []})
