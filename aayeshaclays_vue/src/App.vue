@@ -1,9 +1,9 @@
 <template>
   <div id="wrapper">
-    <nav class="navbar is-dark">
-      <div class="navbar-brand">
+    <nav class="navbar is-light is-fixed-top" role="navigation" aria-label="dropdown navigation">
+      <div class="navbar-brand has-navbar-fixed-top">
         <router-link to="/" class="navbar-item">
-          <strong>Aayesha Clays</strong>
+          <strong>AC</strong>
         </router-link>
 
         <a class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbar-menu" @click="showMobileMenu =! showMobileMenu">
@@ -13,7 +13,7 @@
         </a>
       </div>
 
-      <div class="navbar-menu" id="navbar-menu" v-bind:class="{'is-active': showMobileMenu}">
+      <div class="navbar-menu has-navbar-fixed-top" id="navbar-menu" v-bind:class="{'is-active': showMobileMenu}">
         <div class="navbar-start">
           <div class="navbar-item">
             <form method="get" action="/search">
@@ -34,9 +34,16 @@
           </div>
         </div>
         <div class="navbar-end">
-          <router-link to="/stud" class="navbar-item">Stud</router-link>
-          <router-link to="/dangling" class="navbar-item">Dangling</router-link>
-
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">
+              Categories
+            </a>
+            <div class="navbar-dropdown">
+              <router-link to="/stud" class="navbar-item">Stud</router-link>
+              <router-link to="/dangling" class="navbar-item">Dangling</router-link>
+            </div>
+          </div>
+          
           <div class="navbar-item">
             <div class="buttons">
               <template v-if="$store.state.isAuthenticated">
@@ -58,11 +65,11 @@
       </div>
     </nav>
 
-    <div class="is-loading-bar has-text-centered" v-bind:class="{'is-loading': $store.state.isLoading}">
+    <div class="is-loading-bar has-text-centered mt-5" v-bind:class="{'is-loading': $store.state.isLoading}">
       <div class="lds-dual-ring"></div>
     </div>
 
-    <section class="section">
+    <section class="section mt-5">
       <router-view/>
     </section>
 
