@@ -1,5 +1,5 @@
 <template>
-    <div class="column is-3">
+    <div class="column is-2">
         <div class="box">
             <figure class="image mb-4">
                 <img :src="product.get_thumbnail">
@@ -23,9 +23,13 @@ export default {
 </script>
 
 <style scoped>
-  .image {
-    margin-top: -1.25rem;
-    margin-left: -1.25rem;
-    margin-right: -1.25rem;
-  }
+    /* .box {
+        height: 100px;   
+    } */
+
+    .image {
+        margin-top: -1.25rem;
+        margin-left: -1.25rem;
+        margin-right: -1.25rem;
+    }
 </style>

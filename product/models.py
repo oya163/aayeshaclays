@@ -25,7 +25,7 @@ class Category(models.Model):
         return f'/{self.slug}'
 
 class Color(models.Model):
-    name = models.CharField(max_length=50, default='Red')
+    name = models.CharField(max_length=50)
     slug = models.SlugField()
     
 
@@ -40,11 +40,28 @@ class Color(models.Model):
     def get_absolute_url(self):
         return f'/{self.slug}'
 
+class Collection(models.Model):
+    name = models.CharField(max_length=100)
+    slug = models.SlugField()
+    
+
+    class Meta:
+        ordering = ('name',)
+        verbose_name = ("Collection")
+        verbose_name_plural = ("Collections")
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return f'/{self.slug}'
+
 class Product(models.Model):
     category = models.ForeignKey(Category, related_name='products', on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     slug = models.SlugField()
-    color = models.ForeignKey(Color, related_name='colors', on_delete=models.CASCADE)
+    color = models.ForeignKey(Color, related_name='products', on_delete=models.CASCADE)
+    collection = models.ForeignKey(Collection, related_name='products', on_delete=models.CASCADE)
     description = models.TextField(blank=True, null=True)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     image = models.ImageField(upload_to='uploads/', blank=True, null=True)

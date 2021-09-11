@@ -8,8 +8,9 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
-from .models import Product, Color, Category
-from .serializers import ProductSerializer, ColorSerializer, CategorySerializer
+from .models import Product, Color, Category, Collection
+from .serializers import ProductSerializer, ColorSerializer, \
+    CategorySerializer, CollectionSerializer
 
 class LatestProductsList(APIView):
     def get(self, request, format=None):
@@ -21,6 +22,12 @@ class ColorsList(APIView):
     def get(self, request, format=None):
         colors = Color.objects.all()
         serializer = ColorSerializer(colors, many=True)
+        return Response(serializer.data)
+
+class CollectionList(APIView):
+    def get(self, request, format=None):
+        collections = Collection.objects.all()
+        serializer = CollectionSerializer(collections, many=True)
         return Response(serializer.data)
 
 class ProductDetail(APIView):
