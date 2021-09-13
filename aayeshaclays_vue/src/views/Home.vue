@@ -1,27 +1,28 @@
 <template>
   <div class="home">
-    <section class="hero is-medium is-dark mb-6">
+      <video-background 
+        :src="require(`@/assets/roadster.mp4`)" 
+        :poster="require(`@/assets/logo.png`)"
+        style="max-height: 500px; height: 100vh;"
+        overlay="linear-gradient(45deg,#2a4ae430,#fb949e6b)" 
+      >
+      <p class="title text-white text-center mb-6" style="font-weight: 600; text-align: center">
+          Welcome to Aayesha Clays
+      </p>
+      <p class="subtitle" style="font-weight: 600; text-align: center">
+          The best earrings store online
+      </p>  
+      </video-background>
+    <!-- <section class="hero is-medium is-dark mb-6">
         <div class="hero-body has-text-centered">
-            <video-background 
-                src="./assets/sample.mp4"
-                style="max-height: 400px; height: 100vh;"
-            >
-            <p class="title mb-6">
-                Welcome to Aayesha Clays
-            </p>
-            <p class="subtitle">
-                The best earrings store online
-            </p>
-            </video-background>
 
         </div>
-    </section>
+    </section> -->
 
     <div class="columns is-multiline">
       <div class="column is-12">
           <h2 class="is-size-2 has-text-centered">Latest products</h2>
       </div>
-
     <ProductBox
       v-for="product in latestProducts"
       v-bind:key="product.id"
@@ -34,7 +35,6 @@
 import axios from 'axios';
 import ProductBox from '@/components/ProductBox';
 import VideoBackground from 'vue-responsive-video-background-player';
-// Vue.component('video-background', VideoBackground);
 
 export default {
   name: 'Home',
@@ -45,7 +45,7 @@ export default {
   },
   components: {
     ProductBox,
-    VideoBackground
+    'video-background': VideoBackground,
   },
   mounted() {
     this.getLatestProducts();
