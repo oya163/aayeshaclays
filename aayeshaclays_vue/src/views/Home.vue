@@ -2,12 +2,18 @@
   <div class="home">
     <section class="hero is-medium is-dark mb-6">
         <div class="hero-body has-text-centered">
+            <video-background 
+                src="./assets/sample.mp4"
+                style="max-height: 400px; height: 100vh;"
+            >
             <p class="title mb-6">
                 Welcome to Aayesha Clays
             </p>
             <p class="subtitle">
                 The best earrings store online
             </p>
+            </video-background>
+
         </div>
     </section>
 
@@ -27,6 +33,8 @@
 <script>
 import axios from 'axios';
 import ProductBox from '@/components/ProductBox';
+import VideoBackground from 'vue-responsive-video-background-player';
+// Vue.component('video-background', VideoBackground);
 
 export default {
   name: 'Home',
@@ -36,7 +44,8 @@ export default {
     }
   },
   components: {
-    ProductBox
+    ProductBox,
+    VideoBackground
   },
   mounted() {
     this.getLatestProducts();
