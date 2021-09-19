@@ -5,7 +5,7 @@ from .models import Account
 class AccountSerializer(serializers.ModelSerializer):
     class Meta:
       model = Account
-      fields = ("birth_date", "phone")
+      fields = "__all__"
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -15,9 +15,21 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = (
             "id",
+            "username",
+            "password",
             "first_name",
             "last_name",
             "email",
             "account"
         )
+        extra_kwargs = {'password': {"write_only": True, 'required': True}}
+
+    # Override built-in create method to create Account object as well
+    def create(self, validated_data):
+        account_data = validated_data.pop('account')
+        user = User.objects.create_user(**validated_data)
+        user.account = Account.objects.create(user=user, **account_data)
+        user.save()
+
+        return user
 

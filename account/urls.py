@@ -7,4 +7,5 @@ router.register('users', views.UserViewSet, basename="UserModel")
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('users/<slug:username>', views.MyAccount.as_view()),
 ]
