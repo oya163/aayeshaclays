@@ -10,10 +10,14 @@ from rest_framework import viewsets
 from django.http.response import Http404
 from rest_framework.response import Response
 
+@authentication_classes([authentication.TokenAuthentication])
+@permission_classes([permissions.IsAuthenticated])
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
+@authentication_classes([authentication.TokenAuthentication])
+@permission_classes([permissions.IsAuthenticated])
 class MyAccount(APIView):
     def get_object(self, username):
         try:
