@@ -28,7 +28,7 @@ SECRET_KEY = str(os.getenv("SECRET_KEY"))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['prestige.cor.rd.hpicorp.net', 'localhost']
+ALLOWED_HOSTS = ['prestige.cor.rd.hpicorp.net', 'localhost', '127.0.0.1']
 
 STRIPE_SECRET_KEY = str(os.getenv("STRIPE_KEY"))
 
