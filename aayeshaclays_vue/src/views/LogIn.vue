@@ -72,8 +72,9 @@ export default {
                     this.$store.commit('setToken', token)
                     axios.defaults.headers.common["Authorization"] = "Token " + token
                     localStorage.setItem("token", token)
+                    localStorage.setItem("username", formData.username)
                     
-                    const toPath = this.$route.query.to || '/cart'
+                    const toPath = this.$route.query.to || '/my-account'
                     this.$router.push(toPath)
                 })
                 .catch(error => {

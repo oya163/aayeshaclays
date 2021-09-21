@@ -2,22 +2,89 @@
     <div class="page-my-account">
         <div class="columns is-multiline">
             <div class="column is-12">
-                <h1 class="title">My account</h1>
-            </div>
-
-            <div class="column is-12">
-                <button @click="logout()" class="button is-danger">Log out</button>
+                <h1 class="title">My Profile</h1>
             </div>
 
             <hr>
 
             <div class="column is-12">
-                <h2 class="subtitle">My orders</h2>
+                <h3 class="is-size-4 mb-6">User #{{ user_profile.id }}</h3>
+                
+                <div class="columns is-multiline">
+                    <div class="column is-6">
+                        <div class="field">
+                            <label>First name</label>
+                            <div class="control">
+                                <input type="text" class="input" v-model.lazy="user_profile.first_name">
+                            </div>
+                        </div>
 
-                <OrderSummary
-                    v-for="order in orders"
-                    v-bind:key="order.id"
-                    v-bind:order="order"/>
+                        <div class="field">
+                            <label>Last name</label>
+                            <div class="control">
+                                <input type="text" class="input" v-model="user_profile.last_name">
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label>E-mail</label>
+                            <div class="control">
+                                <input type="email" class="input" v-model="user_profile.email">
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label>Phone</label>
+                            <div class="control">
+                                <input type="text" class="input" v-model="account.phone">
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label>Birth Date</label>
+                            <div class="control">
+                                <input type="text" class="input" v-model="account.birth_date">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column is-6">
+                        <div class="field">
+                            <label>Address 1</label>
+                            <div class="control">
+                                <input type="text" class="input" v-model="account.address1">
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label>Address 2</label>
+                            <div class="control">
+                                <input type="text" class="input" v-model="account.address2">
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label>Zip code</label>
+                            <div class="control">
+                                <input type="text" class="input" v-model="account.zip_code">
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label>City</label>
+                            <div class="control">
+                                <input type="text" class="input" v-model="account.city">
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label>Country</label>
+                            <div class="control">
+                                <input type="text" class="input" v-model="account.country">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </div>
@@ -27,45 +94,37 @@
 
 <script>
 import axios from 'axios';
-import OrderSummary from '@/components/OrderSummary.vue'
+import UserProfile from '@/components/UserProfile.vue'
 
 export default {
     name: 'MyAccount',
     components: {
-        OrderSummary
+        UserProfile
     },
     data() {
         return {
-            orders: []
+            user_profile: Object,
+            account: Object
         }
     },
     mounted() {
         document.title = 'My account | AayeshaClays'
 
-        this.getMyOrders()
+        this.getUserProfile()
     },
     methods: {
-        logout() {
-            axios.defaults.headers.common["Authorization"] = ""
-            localStorage.removeItem("token")
-            localStorage.removeItem("username")
-            localStorage.removeItem("userid")
-
-            this.$store.commit('removeToken')
-            this.$router.push('/')
-        },
-        async getMyOrders() {
+        async getUserProfile() {
             this.$store.commit('setIsLoading', true)
 
             await axios
-                .get('/api/v1/orders')
+                .get(`/users/${localStorage.username}`)
                 .then(response => {
-                    this.orders = response.data;
+                    this.user_profile = response.data;
+                    this.account = this.user_profile.account;
                 })
                 .catch(error => {
                     console.error(error);
                 })
-
             this.$store.commit('setIsLoading', false);
         }
     },

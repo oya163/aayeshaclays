@@ -44,23 +44,31 @@
             </div>
           </div>
           
-          <div class="navbar-item">
-            <div class="buttons">
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">
               <template v-if="$store.state.isAuthenticated">
-                <router-link to="/my-account" class="button is-light">
-                  <span class="icon">
-                    <i class="fas fa-user"></i>
-                  </span>
-                </router-link>
+                <div class="navbar-dropdown">
+                  <router-link to="/my-account" class="navbar-item is-light">My Account</router-link>
+                  <router-link to="/my-orders" class="navbar-item is-light">My Orders</router-link>
+                  <router-link to="/" @click="logout()" class="navbar-item is-light">Log out</router-link>
+                </div>
+                <span class="icon">
+                  <i class="fas fa-user"></i>
+                </span>
               </template>
               <template v-else>
-                <router-link to="/log-in" class="button is-light">
-                  <span class="icon">
-                    <i class="far fa-user"></i>
-                  </span>
-                </router-link>
+                <span class="icon">
+                  <i class="far fa-user"></i>
+                </span>
+                <div class="navbar-dropdown">
+                  <router-link to="/log-in" class="navbar-item button is-light">Log In</router-link>
+                </div>
               </template>
-              
+            </a>
+          </div>
+
+          <div class="navbar-item">
+            <div class="buttons">
               <router-link to="/cart" class="button is-success">
                 <span class="icon">
                   <i class="fas fa-shopping-cart"></i>
@@ -111,6 +119,17 @@ export default {
   },
   mounted() {
     this.cart = this.$store.state.cart
+  },
+  methods: {
+    logout() {
+      axios.defaults.headers.common["Authorization"] = ""
+      localStorage.removeItem("token")
+      localStorage.removeItem("username")
+      localStorage.removeItem("userid")
+
+      this.$store.commit('removeToken')
+      this.$router.push('/')
+    },
   },
   computed: {
       cartTotalLength() {
