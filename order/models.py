@@ -55,7 +55,7 @@ class ShippingAddress(models.Model):
 
     country = models.CharField(
         "Country",
-        max_length=3,
+        max_length=2,
         choices=get_country_codes(),
     )
 

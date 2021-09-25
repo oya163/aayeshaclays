@@ -7,34 +7,34 @@
 
             <hr>
 
-            <form @submit.prevent="submitForm">
-                <div class="column is-12">
-                    <h3 class="is-size-4 mb-6">User #{{ user_profile.id }}</h3>
+            <div class="column is-12">
+                <h3 class="is-size-4 mb-6">Welcome {{ user_profile.first_name }} !</h3>
 
-                    <div class="notification is-danger" v-if="errors.length">
-                        <p v-for="error in errors" v-bind:key="error">{{ error }}</p>
-                    </div>
-                    
+                <div class="notification is-danger" v-if="errors.length">
+                    <p v-for="error in errors" v-bind:key="error">{{ error }}</p>
+                </div>
+
+                <form @submit.prevent="submitForm">                    
                     <div class="columns is-multiline">
                         <div class="column is-6">
                             <div class="field">
                                 <label>First name</label>
                                 <div class="control">
-                                    <input type="text" class="input" v-model="user_profile.first_name">
+                                    <input type="text" class="input" v-model="user_profile.first_name" placeholder="First Name">
                                 </div>
                             </div>
 
                             <div class="field">
                                 <label>Last name</label>
                                 <div class="control">
-                                    <input type="text" class="input" v-model="user_profile.last_name">
+                                    <input type="text" class="input" v-model="user_profile.last_name" placeholder="Last Name">
                                 </div>
                             </div>
 
                             <div class="field">
                                 <label>E-mail</label>
                                 <div class="control">
-                                    <input type="email" class="input" v-model="user_profile.email">
+                                    <input type="email" class="input" v-model="user_profile.email" placeholder="email@domain.com">
                                 </div>
                             </div>
 
@@ -48,7 +48,7 @@
                             <div class="field">
                                 <label>Birth Date</label>
                                 <div class="control">
-                                    <input type="text" class="input" v-model="account.birth_date">
+                                    <input type="date" class="input" v-model="account.birth_date" placeholder="MM/DD/YYYY">
                                 </div>
                             </div>
                         </div>
@@ -71,7 +71,7 @@
                             <div class="field">
                                 <label>Zip code</label>
                                 <div class="control">
-                                    <input type="text" class="input" v-model="account.zip_code">
+                                    <input type="text" class="input" v-model="account.zip_code" placeholder="5 digit zip code">
                                 </div>
                             </div>
 
@@ -85,7 +85,7 @@
                             <div class="field">
                                 <label>Country</label>
                                 <div class="control">
-                                    <input type="text" class="input" v-model="account.country">
+                                    <country-select class="input dropdown" v-model="account.country" :country="account.country"/>
                                 </div>
                             </div>
                         </div>
@@ -96,8 +96,8 @@
                             <button class="button is-dark">Save Changes</button>
                         </div>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
     
@@ -106,12 +106,12 @@
 <script>
 import axios from 'axios';
 import { toast } from 'bulma-toast';
-import UserProfile from '@/components/UserProfile.vue'
+import { vueCountryRegionSelect } from 'vue3-country-region-select';
 
 export default {
     name: 'MyAccount',
     components: {
-        UserProfile
+        vueCountryRegionSelect
     },
     data() {
         return {
@@ -198,7 +198,7 @@ export default {
                         }
                     })
             }
-        },
-    },
+        }
+    }
 }
 </script>
