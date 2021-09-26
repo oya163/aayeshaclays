@@ -1,9 +1,23 @@
 from django.db.models import fields
 from rest_framework import serializers
 
-from .models import Category, Color, Product, Collection
+from .models import Category, Color, Product, Collection, ImageModel
+
+class ImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ImageModel
+        fields = (
+            "id",
+            "name",
+            "product",
+            "get_image",
+            "get_thumbnail",
+            "date_added",
+            "default",
+        )
 
 class ProductSerializer(serializers.ModelSerializer):
+    images = ImageSerializer(many=True, source="product_image")
     class Meta:
         model = Product
         fields = (
@@ -14,8 +28,7 @@ class ProductSerializer(serializers.ModelSerializer):
             "collection",
             "description",
             "price",
-            "get_image",
-            "get_thumbnail"
+            "images"
         )
 
 class ColorSerializer(serializers.ModelSerializer):

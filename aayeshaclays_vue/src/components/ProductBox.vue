@@ -1,8 +1,8 @@
 <template>
-    <div class="column is-2">
+    <div v-if="product.images.length" class="column is-2">
         <div class="box">
             <figure class="image mb-4">
-                <img :src="product.get_thumbnail">
+                <img :src="product.images[0].get_thumbnail">
             </figure>
 
             <h3 class="is-size-4">{{ product.name }}</h3>

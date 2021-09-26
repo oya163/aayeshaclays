@@ -3,7 +3,7 @@
         <div class="columns is-multiline">
             <div class="column is-9">
                 <figure class="image mb-6">
-                    <img v-bind:src="product.get_image">
+                    <img v-bind:src="product.images[0].get_image">
                 </figure>
             </div>
             <div class="column is-3">
