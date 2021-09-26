@@ -85,7 +85,7 @@
                             <div class="field">
                                 <label>Country</label>
                                 <div class="control">
-                                    <country-select class="input dropdown" v-model="account.country" :country="account.country"/>
+                                    <country-select class="input dropdown" v-model="account.country" :country="account.country" topCountry="US"/>
                                 </div>
                             </div>
                         </div>

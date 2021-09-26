@@ -1,7 +1,7 @@
 from product.models import Product
 from django.db.models import fields
 from rest_framework import serializers
-from .models import Order, OrderItem
+from .models import Order, OrderItem, ShippingAddress
 from product.serializers import ProductSerializer
 
 class MyOrderItemSerializer(serializers.ModelSerializer): 
@@ -15,8 +15,20 @@ class MyOrderItemSerializer(serializers.ModelSerializer):
             "quantity",
         )
 
+class ShippingAddressSerializer(serializers.ModelSerializer):
+    class Meta:
+      model = ShippingAddress
+      fields = (
+          "address1",
+          "address2",
+          "zip_code",
+          "city",
+          "country",
+      )
+
 class MyOrderSerializer(serializers.ModelSerializer):
     items = MyOrderItemSerializer(many=True)
+    address = ShippingAddressSerializer()
 
     class Meta:
         model = Order
@@ -25,13 +37,11 @@ class MyOrderSerializer(serializers.ModelSerializer):
             "first_name",
             "last_name",
             "email",
-            "address",
-            "zipcode",
-            "place",
             "phone",
+            "paid_amount",
             "stripe_token",
             "items",
-            "paid_amount"
+            "address",
         )
 
 class OrderItemSerializer(serializers.ModelSerializer):    
@@ -45,6 +55,7 @@ class OrderItemSerializer(serializers.ModelSerializer):
 
 class OrderSerializer(serializers.ModelSerializer):
     items = OrderItemSerializer(many=True)
+    address = ShippingAddressSerializer()
 
     class Meta:
         model = Order
@@ -53,19 +64,18 @@ class OrderSerializer(serializers.ModelSerializer):
             "first_name",
             "last_name",
             "email",
-            "address",
-            "zipcode",
-            "place",
             "phone",
             "stripe_token",
             "items",
+            "address",
         )
     
     def create(self, validated_data):
         items_data = validated_data.pop('items')
-        order = Order.objects.create(**validated_data)
+        address_data = validated_data.pop('address')
+        address = ShippingAddress.objects.create(**address_data)
 
+        order = Order.objects.create(**validated_data, address=address)
         for item_data in items_data:
             OrderItem.objects.create(order=order, **item_data)
-            
         return order

@@ -74,26 +74,40 @@
                     </div>
 
                     <div class="column is-6">
-                        <div class="field">
-                            <label>Address*</label>
-                            <div class="control">
-                                <input type="text" class="input" v-model="address">
+                            <div class="field">
+                                <label>Address 1*</label>
+                                <div class="control">
+                                    <input type="text" class="input" v-model="address1">
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="field">
-                            <label>Zip code*</label>
-                            <div class="control">
-                                <input type="text" class="input" v-model="zipcode">
+                            <div class="field">
+                                <label>Address 2</label>
+                                <div class="control">
+                                    <input type="text" class="input" v-model="address2">
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="field">
-                            <label>Place*</label>
-                            <div class="control">
-                                <input type="text" class="input" v-model="place">
+                            <div class="field">
+                                <label>Zip code*</label>
+                                <div class="control">
+                                    <input type="text" class="input" v-model="zip_code" placeholder="5 digit zip code">
+                                </div>
                             </div>
-                        </div>
+
+                            <div class="field">
+                                <label>City*</label>
+                                <div class="control">
+                                    <input type="text" class="input" v-model="city">
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <label>Country*</label>
+                                <div class="control">
+                                    <country-select class="input dropdown" v-model="country" :country="country" topCountry="US"/>
+                                </div>
+                            </div>
                     </div>
                 </div>
 
@@ -129,9 +143,11 @@ export default {
             last_name: '',
             email: '',
             phone: '',
-            address: '',
-            zipcode: '',
-            place: '',
+            address1: '',
+            address2: '',
+            zip_code: '',
+            city: '',
+            country: 'US',
             errors: []
         }
     },
@@ -167,14 +183,17 @@ export default {
             if (this.phone === '') {
                 this.errors.push('The phone field is missing!')
             }
-            if (this.address === '') {
-                this.errors.push('The address field is missing!')
+            if (this.address1 === '') {
+                this.errors.push('The address1 field is missing!')
             }
-            if (this.zipcode === '') {
-                this.errors.push('The zip code field is missing!')
+            if (this.zip_code === '') {
+                this.errors.push('The zip_code field is missing!')
             }
-            if (this.place === '') {
-                this.errors.push('The place field is missing!')
+            if (this.city === '') {
+                this.errors.push('The city field is missing!')
+            }
+            if (this.country === '') {
+                this.errors.push('The country field is missing!')
             }
 
             if (!this.errors.length) {
@@ -208,11 +227,15 @@ export default {
                 'first_name': this.first_name,
                 'last_name': this.last_name,
                 'email': this.email,
-                'address': this.address,
-                'zipcode': this.zipcode,
-                'place': this.place,
                 'phone': this.phone,
                 'items': items,
+                'address': {
+                    'address1': this.address1,
+                    'address2': this.address2,
+                    'zip_code': this.zip_code,
+                    'city': this.city,
+                    'country': this.country,
+                },
                 'stripe_token': token.id
             }
 
@@ -223,7 +246,7 @@ export default {
                     this.$router.push('/cart/success');
                 })
                 .catch(error => {
-                    this.errors.push('Something went wrong. Please try again')
+                    this.errors.push(`${error}`)
                     console.log(error);
                 })
 
