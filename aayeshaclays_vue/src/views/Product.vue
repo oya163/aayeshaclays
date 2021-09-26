@@ -3,7 +3,7 @@
         <div class="columns is-multiline">
             <div class="column is-9">
                 <figure class="image mb-6">
-                    <img v-bind:src="product.images[0].get_image">
+                    <img v-bind:src="main_image.get_image">
                 </figure>
             </div>
             <div class="column is-3">
@@ -37,7 +37,8 @@ export default{
     data() {
         return {
             product: {},
-            quantity: 1
+            quantity: 1,
+            main_image: {}
         }
     },
     mounted() {
@@ -54,6 +55,7 @@ export default{
                 .get(`/api/v1/products/${category_slug}/${product_slug}`)
                 .then(response => {
                     this.product = response.data
+                    this.main_image = this.product.images[0];
 
                     document.title = this.product.name + ' | AayeshaClays';
                 })
