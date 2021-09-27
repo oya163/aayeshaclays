@@ -1,12 +1,22 @@
 <template>
     <div class="page-product">
         <div class="columns is-multiline">
-            <div class="column is-9">
-                <figure class="image mb-6">
-                    <img v-bind:src="main_image.get_image">
-                </figure>
+            <div class="column is-7">
+                <div class="columns">
+                    <class class="column is-1">
+                        <figure class="image is-64x64 thumbnail" v-for="img in product.images" :key="img.id">
+                            <img :src="img.get_image" @click="main_image=img"/>
+                        </figure>
+                    </class>
+                    <class class="column">
+                        <figure class="image main-image">
+                            <img v-bind:src="main_image.get_image">
+                        </figure>
+                    </class>
+                </div>
+
             </div>
-            <div class="column is-3">
+            <div class="column">
                 <h2 class="subtitle">Information</h2>
                 <h1 class="title">{{ product.name }}</h1>
 
@@ -88,3 +98,14 @@ export default{
     }
 }
 </script>
+
+<style lang="scss">
+.main-image {
+    width: 50%
+}
+
+.thumbnail {
+    margin-bottom: 80px;
+    cursor: pointer;
+}
+</style>

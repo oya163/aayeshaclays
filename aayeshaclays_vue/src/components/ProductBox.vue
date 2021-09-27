@@ -2,7 +2,7 @@
     <div v-if="product.images.length" class="column is-2">
         <div class="box">
             <figure class="image mb-4">
-                <img :src="product.images[0].get_thumbnail">
+                <img :src="product.images[0].get_image">
             </figure>
 
             <h3 class="is-size-4">{{ product.name }}</h3>
@@ -23,10 +23,6 @@ export default {
 </script>
 
 <style scoped>
-    /* .box {
-        height: 100px;   
-    } */
-
     .image {
         margin-top: -1.25rem;
         margin-left: -1.25rem;
