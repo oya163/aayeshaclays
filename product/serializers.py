@@ -11,7 +11,6 @@ class ImageSerializer(serializers.ModelSerializer):
             "name",
             "product",
             "get_image",
-            "get_thumbnail",
             "date_added",
             "default",
         )
