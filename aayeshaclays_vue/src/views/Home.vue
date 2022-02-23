@@ -13,11 +13,6 @@
         overlay="linear-gradient(45deg,#2a4ae430,#fb949e6b)" 
       >  
       </video-background>
-    <!-- <section class="hero is-medium is-dark mb-6">
-        <div class="hero-body has-text-centered">
-
-        </div>
-    </section> -->
 
     <div class="columns is-multiline">
       <div class="column is-12">
