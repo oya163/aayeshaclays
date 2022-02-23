@@ -1,17 +1,17 @@
 <template>
   <div class="home">
-      <video-background 
-        :src="require(`@/assets/roadster.mp4`)" 
-        :poster="require(`@/assets/logo.png`)"
-        style="max-height: 500px; height: 100vh;"
-        overlay="linear-gradient(45deg,#2a4ae430,#fb949e6b)" 
-      >
       <p class="title text-white text-center mb-6" style="font-weight: 600; text-align: center">
           Welcome to Aayesha Clays
       </p>
       <p class="subtitle" style="font-weight: 600; text-align: center">
           The best earrings store online
-      </p>  
+      </p>
+      <video-background 
+        :src="require(`@/assets/butterfly.mp4`)" 
+        :poster="require(`@/assets/logo.png`)"
+        style="max-height: 500px; height: 100vh;"
+        overlay="linear-gradient(45deg,#2a4ae430,#fb949e6b)" 
+      >  
       </video-background>
     <!-- <section class="hero is-medium is-dark mb-6">
         <div class="hero-body has-text-centered">
